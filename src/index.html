@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+    <script src=".././node_modules/web3/dist/web3.min.js"></script>
+    <script src=".././node_modules/truffle-contract/dist/truffle-contract.min.js"></script>
+    <script src=".././node_modules/jquery/dist/jquery.js"></script>
+
+</head>
+<body>
+    <div class="container">
+      <table style="width:100%">
+        <tr>
+          <td>
+            <h1>Car History Update</h1>
+            <label for="name" class="col-lg-2 control-label">Car Reg No</label>
+            <input id="carRegNoI" type="text">
+            <label for="mileage" class="col-lg-2 control-label">Mileage</label>
+            <input id="mileage" type="text">
+            <label for="record1" class="col-lg-2 control-label">Record 1</label>
+            <input id="record1" type="text">
+            <label for="record2" class="col-lg-2 control-label">Record 2</label>
+            <input id="record2" type="text">
+            <label for="record3" class="col-lg-2 control-label">Record 3</label>
+            <input id="record3" type="text">
+            <button id="submitbutton">Update History</button>
+          </td>
+          <td>
+            <h1>Car History</h1>
+            <label for="name" class="col-lg-2 control-label">Car Reg No</label>
+            <input id="carRegNoS" type="text">
+            <button id="gethistory">Get History</button>
+            <h2 id="carhistory"></h2>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <script>
+          if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+          } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
+          }
+          $.getJSON(".././build/contracts/carhistory.json", function(CarHistory_json) {
+            var CarHistoryContract = TruffleContract( CarHistory_json );
+            CarHistoryContract.setProvider(new Web3.providers.HttpProvider("http://localhost:9545"));
+            console.log(window.web3.currentProvider);
+            web3.version.getNetwork(
+              function(err,res)
+              {
+                console.log(res)
+              });
+
+            //@TODO watch event need some work
+                // Start watching the events
+                // CarHistoryContract.deployed().then(function(instance) {
+                //   console.log('Watch started');
+                //   var carHistoryEvent = instance.FetchCarHistoryLog({}, {fromBlock: 1, toBlock: 'latest'});
+                //   carHistoryEvent.watch(function(error, result) {
+                //     console.log('Change received');
+                //       if (!error) {
+                //           console.log("Mileage was : " + result.args.mileage +
+                //               " Part1 was " + result.args.part1 +
+                //               " Part2 was " + result.args.part2 + ".");
+                //       }
+                //   })
+                // }).then(function(result) {
+                //     console.log('Service log created ' + result);
+                // }, function(error) {
+                //     console.log(error);
+                // });
+                $("#submitbutton").click(function() {
+                  CarHistoryContract.deployed().then(function(instance) {
+                      return instance.setCarHistoryLog($("#carRegNoI").val(),
+                                      $("#mileage").val(),$("#record1").val(),$("#record2").val(),
+                                      $("#record3").val(), {from: '0x627306090abab3a6e1400e9345bc60c78a8bef57', gas:300000});
+                  }).then(function(result) {
+                      console.log('Service log created ' + result.toString());
+                  }, function(error) {
+                      console.log(error);
+                  });
+                 });
+
+                 $("#gethistory").click(function() {
+                   CarHistoryContract.deployed().then(function(instance) {
+                     console.log('Querying for ' + $("#carRegNoS").val());
+                           return instance.getCarHistoryLog.call($("#carRegNoS").val());
+                       }).then(function(result) {
+                         $("#carhistory").html('Mileage of Car with Reg no '  + $("#carRegNoS").val() + ' is ' + result[0].toString());
+                         console.log(result);
+                         console.log(result[0].toString());
+                         console.log(result[1].toString());
+                       }, function(error) {
+                           console.log(error);
+                       });
+                  });
+          })
+
+  </script>
+
+</body>
+</html>

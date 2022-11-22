@@ -1,0 +1,25 @@
+{
+  "name": "carhistory",
+  "version": "1.0.0",
+  "description": "Blockchain app to maintain car service history",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "blockchain",
+    "car",
+    "service"
+  ],
+  "author": "Rajeev Singh",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "truffle": "^4.1.14",
+    "truffle-contract": "^3.0.1",
+    "web3": "0.19.0"
+  },
+  "devDependencies": {}
+}
