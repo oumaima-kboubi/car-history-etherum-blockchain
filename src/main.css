@@ -1,7 +1,8 @@
 body {
     background-color:#F0F0F0;
-    padding: 2em;
     font-family: 'Raleway','Source Sans Pro', 'Arial';
+    padding: 0% !important; 
+    margin: 0% !important;
 }
 .container {
     width: 100%;
@@ -15,6 +16,7 @@ input {
     padding:10px;
     width: 50%;
     margin-bottom: 1em;
+   
 }
 button {
     margin: 2em 0;
@@ -27,3 +29,4 @@ button {
     background-color:#fff;
     margin: 1em 0;
 }
+.card {display:inline-block;}

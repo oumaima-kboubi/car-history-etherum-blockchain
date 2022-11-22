@@ -1,4 +1,4 @@
-pragma solidity ^0.4.11;
+pragma solidity >=0.4.11;
 
 import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
@@ -8,7 +8,7 @@ contract TestCarHistory {
   carhistory ch = carhistory(DeployedAddresses.carhistory());
 
   // Testing the setCarHistoryLog() function
-  function testSetCarHistoryLog() {
+  function testSetCarHistoryLog() public {
     bool returnedStatus = ch.setCarHistoryLog("LS06UKE",11000,"Oil","Filter","Brake");
     bool expectedStatus = true;
     Assert.equal(returnedStatus, expectedStatus, "CarHistory Log is set" );
@@ -16,9 +16,10 @@ contract TestCarHistory {
   }
 
   // Testing retrieval of car service history
-function testGetCarHistoryLog() {
-  uint expected = 11000;
+function testGetCarHistoryLog() public {
+  
   var (mileage, part1, part2, part3, sender) = ch.getCarHistoryLog("LS06UKE");
+  uint expected = 11000;
   Assert.equal(mileage, expected, "Car Mileage should be 11000");
   Assert.equal(part1, "Oil", "Service history says oil changed");
   Assert.equal(part2, "Filter", "Service history says filter changed");

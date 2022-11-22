@@ -6,42 +6,82 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-    <link rel="stylesheet" type="text/css" href="main.css">
-
+    <link rel="stylesheet" type="text/css" href=".././src/main.css">
+    
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src=".././node_modules/web3/dist/web3.min.js"></script>
     <script src=".././node_modules/truffle-contract/dist/truffle-contract.min.js"></script>
     <script src=".././node_modules/jquery/dist/jquery.js"></script>
 
 </head>
-<body>
-    <div class="container">
+<body style="padding: 0% !important; ">
+  
+  <div class="bg-image" 
+  style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');;
+         height: 150%">
+    <div class="container" style=" padding: 50px !important;">
+      
       <table style="width:100%">
         <tr>
-          <td>
-            <h1>Car History Update</h1>
-            <label for="name" class="col-lg-2 control-label">Car Reg No</label>
-            <input id="carRegNoI" type="text">
-            <label for="mileage" class="col-lg-2 control-label">Mileage</label>
-            <input id="mileage" type="text">
-            <label for="record1" class="col-lg-2 control-label">Record 1</label>
-            <input id="record1" type="text">
-            <label for="record2" class="col-lg-2 control-label">Record 2</label>
-            <input id="record2" type="text">
-            <label for="record3" class="col-lg-2 control-label">Record 3</label>
-            <input id="record3" type="text">
-            <button id="submitbutton">Update History</button>
+          <td >
+            <div class="card text-white bg-dark mb-3v" style="margin-right: 20px !important;">
+              <div class="card-header text-center">
+                <h3 class="card-title">Car History Update</h3>
+                </div>
+              <div class="card-body">
+  
+            <div class="form-group">
+              <label for="name" class="col-lg-4 control-label">Car Reg No</label>
+              <input class="form-control" id="carRegNoI" type="text" placeholder="Enter Car Reg No">
+            </div>
+            <div class="form-group">
+              <label for="mileage" class="col-lg-4 control-label">Mileage</label>
+              <input id="mileage" type="text" class="form-control"  placeholder="Mileage">
+            </div>
+            <div class="form-group">
+              <label for="record1" class="col-lg-4 control-label">Record 1</label>
+              <input id="record1" type="text" class="form-control"  placeholder="Record 1">
+            </div>
+            <div class="form-group">
+              <label for="record2" class="col-lg-4 control-label">Record 2</label>
+              <input id="record2" type="text" class="form-control"  placeholder="Record 2">
+            </div>
+            <div class="form-group">
+              <label for="record3" class="col-lg-4 control-label">Record 3</label>
+              <input id="record3" type="text" class="form-control"  placeholder="Record 3">
+            </div>
+            <div  class="text-center">
+            <button id="submitbutton" type="submit" class="btn btn-primary" style="background-color:#9017BB; border-color: #9017BB;">Update History</button>
+            </div>
+       </div>
+       </div>
+          </div>
           </td>
           <td>
-            <h1>Car History</h1>
-            <label for="name" class="col-lg-2 control-label">Car Reg No</label>
-            <input id="carRegNoS" type="text">
-            <button id="gethistory">Get History</button>
-            <h2 id="carhistory"></h2>
+            <div class="card text-white  mb-3" style="background-color:#9017BB">
+              <div class="card-header text-center">
+                <h3 class="card-title">Car History</h3>
+                </div>
+              <div class="card-body">
+              
+              <div class="form-group">
+                <label for="name" class="col-lg-4 control-label">Car Reg No</label>
+                <input class="form-control" id="carRegNoS" type="text" placeholder="Enter Car Reg No">
+              </div>
+              <div class="text-center">
+              <button id="gethistory" type="submit" class="btn btn-dark" style="text-align: center;">Get History</button>
+                </div>
+            <p id="carhistory" class="text-break" style="color: black; font-size: medium; max-width: 400px; "></p>
+            </div>
+            </div>
+            </div>
+           
           </td>
         </tr>
       </table>
     </div>
-
+<br><br><br><br>
     <script>
           if (typeof web3 !== 'undefined') {
             web3 = new Web3(web3.currentProvider);
@@ -81,7 +121,7 @@
                   CarHistoryContract.deployed().then(function(instance) {
                       return instance.setCarHistoryLog($("#carRegNoI").val(),
                                       $("#mileage").val(),$("#record1").val(),$("#record2").val(),
-                                      $("#record3").val(), {from: '0x627306090abab3a6e1400e9345bc60c78a8bef57', gas:300000});
+                                      $("#record3").val(), {from: '0x1fa8447e4efefe60ec10244a8b65881de5cf7a52', gas:300000});
                   }).then(function(result) {
                       console.log('Service log created ' + result.toString());
                   }, function(error) {

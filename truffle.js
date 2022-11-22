@@ -6,7 +6,7 @@ module.exports = {
      host: "localhost",
      port: 8545,
      network_id: "*", // Match any network id
-     from: "0x627306090abab3a6e1400e9345bc60c78a8bef57",
+     from: "0x1fa8447e4efefe60ec10244a8b65881de5cf7a52",
      gas: 4612388
    }
  }
